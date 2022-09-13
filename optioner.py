@@ -14,3 +14,8 @@ class Optioner:
         self.cmd_dir = self.project_dir / args.cmd_dir
         self.descriptions_path = self.cmd_dir / "descriptions.csv"
         self.durations_path = self.cmd_dir / "durations.csv"
+        self.tvc_dir = self.project_dir / args.tvc_dir
+        self.mkdir()
+
+    def mkdir(self) -> None:
+        self.tvc_dir.mkdir(parents=True, exist_ok=True)

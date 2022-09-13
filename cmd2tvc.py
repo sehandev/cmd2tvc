@@ -15,6 +15,7 @@ def main(option: Optioner) -> None:
     merge_df = pd.merge(description_df, duration_df, on="videoid")
 
     # Convert CMD to TVC
+    json_string_list = []
     for idx, row in tqdm(merge_df.iterrows(), total=len(merge_df)):
         # Make CMD
         cmd = CMDInfo(
@@ -39,16 +40,22 @@ def main(option: Optioner) -> None:
             vid_name=cmd.videoid,
         )
 
-        # TODO Export to jsonl
+        # Export to json
+        tvc_dict = tvc.export_dictionary()
+        json_string = json.dumps(tvc_dict, default=str)
+        json_string_list.append(json_string)
 
-    # Test
-    print(tvc)
+    # Save TVC jsonl
+    with open(option.tvc_dir / "cmd.jsonl", "w") as jsonl_file:
+        for json_string in json_string_list:
+            jsonl_file.write(json_string + "\n")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert CMD to TVC.")
     parser.add_argument("--project_dir", help="Project directory path")
     parser.add_argument("--cmd_dir", default="./test", help="CMD directory path")
+    parser.add_argument("--tvc_dir", default="./tvc", help="TVC directory path")
     args = parser.parse_args()
     option = Optioner(args)
     main(option)
