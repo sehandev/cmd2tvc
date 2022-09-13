@@ -1,3 +1,4 @@
+import json
 from typing import List
 
 
@@ -64,3 +65,7 @@ class TVCInfo:
             "ts": self.ts,
             "vid_name": self.vid_name,
         }
+
+    def __str__(self) -> str:
+        tvc_dict = self.export_dictionary()
+        return json.dumps(tvc_dict, indent=4, default=str)
