@@ -1,2 +1,2 @@
-# cmd2tvc
+# CMD to TVC
 Convert CMD(Condensed Movies Dataset) to TVC(TV show Caption) dataset
