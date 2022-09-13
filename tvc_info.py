@@ -23,6 +23,14 @@ class TVCDescription:
         if self.type not in type_set:
             raise ValueError(f"Description type must be one of [{', '.join(type_set)}]")
 
+    def export_dictionary(self):
+        return {
+            "desc": self.desc,
+            "desc_id": self.desc_id,
+            "from_retrieval": self.from_retrieval,
+            "type": self.type,
+        }
+
 
 class TVCInfo:
     def __init__(
@@ -48,9 +56,10 @@ class TVCInfo:
             raise ValueError("At least one description is needed")
 
     def export_dictionary(self):
+        descs = [desc.export_dictionary() for desc in self.descs]
         return {
             "clip_id": self.clip_id,
-            "descs": self.descs,
+            "descs": descs,
             "duration": self.duration,
             "ts": self.ts,
             "vid_name": self.vid_name,
