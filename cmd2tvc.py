@@ -50,7 +50,7 @@ def export_json(tvc: TVCInfo) -> str:
 
 
 def save_tvc_jsonl(tvc_dir: Path, json_string_list: List[str]):
-    with open(tvc_dir / "cmd.jsonl", "w") as jsonl_file:
+    with open(tvc_dir / "captions.jsonl", "w") as jsonl_file:
         for json_string in json_string_list:
             jsonl_file.write(json_string + "\n")
 
