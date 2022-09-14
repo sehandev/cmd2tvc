@@ -1,22 +1,28 @@
 from pathlib import Path
-from typing import Iterable, List
-from xmlrpc.client import Boolean
+import re
+from typing import List
 
-import pandas as pd
 import pysrt
 from tqdm import tqdm
 
 from cmd_info import CMDSubtitleLine
 from optioner import Optioner
-from tvc_info import TVCCaption, TVCDescription, TVCSubtitle, TVCSubtitleLine
+from tvc_info import TVCSubtitle, TVCSubtitleLine
 from utils import export_json, save_jsonl
 
 PREPROCESS_FLAG = "preprocessed"
+TIMELINE_REGEX = r"\d+:\d+:\d+,\d+ --> \d+:\d+:\d+,\d+"
 
 
 def find_cmd_srt_paths(videos_dir: Path) -> List[Path]:
     srt_path_list = list(videos_dir.glob(f"**/*[!{PREPROCESS_FLAG}].srt"))
     return srt_path_list
+
+
+def is_timeline(line: str) -> bool:
+    if re.match(TIMELINE_REGEX, line):
+        return True
+    return False
 
 
 def preprocess_srt(line: str) -> str:
@@ -25,9 +31,6 @@ def preprocess_srt(line: str) -> str:
 
 
 def make_preprocessed_srt(srt_path: Path) -> Path:
-    return srt_path
-
-    # TODO srt format을 지키면서 preprocess
     preprocessed_srt_path = srt_path.with_suffix(f".{PREPROCESS_FLAG}.srt")
 
     if preprocessed_srt_path.exists():
@@ -36,9 +39,10 @@ def make_preprocessed_srt(srt_path: Path) -> Path:
     preprocessed_line_list: List[str] = []
     with open(srt_path, "r") as srt_file:
         for line in srt_file:
-            print("$$", line, "$$")
             line = preprocess_srt(line)
             if line != "":
+                if is_timeline(line):
+                    preprocessed_line_list[-1] = f"\n{preprocessed_line_list[-1]}"
                 preprocessed_line_list.append(line)
 
     with open(preprocessed_srt_path, "w") as srt_file:
