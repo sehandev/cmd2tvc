@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 from typing import List
 
@@ -8,6 +7,7 @@ from tqdm import tqdm
 from cmd_info import CMDCaption
 from optioner import Optioner, get_args_parser
 from tvc_info import TVCDescription, TVCCaption
+from utils import export_json
 
 
 def load_cmd(descriptions_path: Path, durations_path: Path):
@@ -41,12 +41,6 @@ def convert_caption(clip_id: int, cmd_row: pd.Series) -> TVCCaption:
         vid_name=cmd.videoid,
     )
     return tvc
-
-
-def export_json(tvc: TVCCaption) -> str:
-    tvc_dict = tvc.export_dictionary()
-    json_string = json.dumps(tvc_dict, default=str)
-    return json_string
 
 
 def save_tvc_caption_jsonl(tvc_dir: Path, json_string_list: List[str]):
