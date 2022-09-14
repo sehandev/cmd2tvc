@@ -1,4 +1,3 @@
-import argparse
 import json
 from pathlib import Path
 from typing import List
@@ -7,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from cmd_info import CMDInfo
-from optioner import Optioner
+from optioner import Optioner, get_args_parser
 from tvc_info import TVCDescription, TVCInfo
 
 
@@ -56,7 +55,7 @@ def save_tvc_jsonl(tvc_dir: Path, json_string_list: List[str]):
             jsonl_file.write(json_string + "\n")
 
 
-def main(option: Optioner) -> None:
+def convert_caption(option: Optioner) -> None:
     cmd_df = load_cmd(option.descriptions_path, option.durations_path)
 
     # Convert CMD to TVC
@@ -71,11 +70,10 @@ def main(option: Optioner) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Convert CMD to TVC.")
-    parser.add_argument("--project_dir", help="Project directory path")
-    parser.add_argument("--cmd_dir", default="./test", help="CMD directory path")
-    parser.add_argument("--tvc_dir", default="./tvc", help="TVC directory path")
-    args = parser.parse_args()
+    args_parser = get_args_parser()
+    args = args_parser.parse_args()
 
     option = Optioner(args)
-    main(option)
+
+    if option.is_caption:
+        convert_caption(option)
