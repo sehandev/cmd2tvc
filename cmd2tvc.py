@@ -1,9 +1,6 @@
 from captions import convert_captions
 from optioner import Optioner, get_args_parser
-
-
-def convert_subtitles(option: Optioner) -> None:
-    pass
+from subtitles import convert_subtitles
 
 
 if __name__ == "__main__":
