@@ -47,7 +47,7 @@ class Optioner:
             self.project_dir: Path = Path(__file__).parent.resolve()
         else:
             self.project_dir: Path = Path(args.project_dir).resolve()
-        self.cmd_dir: Path = self.project_dir / args.cmd_dir
+        self.cmd_dir: Path = Path(args.cmd_dir).resolve()
         self.metadata_dir: Path = self.cmd_dir / "metadata"
         self.descriptions_path: Path = self.metadata_dir / "descriptions.csv"
         self.durations_path: Path = self.metadata_dir / "durations.csv"
