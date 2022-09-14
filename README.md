@@ -4,5 +4,5 @@ Convert CMD(Condensed Movies Dataset) to TVC(TV show Caption) dataset
 
 ## TODO
 - [ ]  Video Features
-- [ ]  Subtitles
-- [x]  Captions
+- [x]  Subtitles (v0.2.0)
+- [x]  Captions (v0.1.0)
