@@ -48,8 +48,10 @@ class Optioner:
         else:
             self.project_dir: Path = Path(args.project_dir).resolve()
         self.cmd_dir: Path = self.project_dir / args.cmd_dir
-        self.descriptions_path: Path = self.cmd_dir / "descriptions.csv"
-        self.durations_path: Path = self.cmd_dir / "durations.csv"
+        self.metadata_dir: Path = self.cmd_dir / "metadata"
+        self.descriptions_path: Path = self.metadata_dir / "descriptions.csv"
+        self.durations_path: Path = self.metadata_dir / "durations.csv"
+        self.videos_dir: Path = self.cmd_dir / "videos"
         self.tvc_dir: Path = self.project_dir / args.tvc_dir
         self.is_caption: bool = args.is_caption
         self.is_subtitle: bool = args.is_subtitle
