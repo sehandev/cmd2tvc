@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import List
 
 import pandas as pd
 from tqdm import tqdm
@@ -7,10 +6,10 @@ from tqdm import tqdm
 from cmd_info import CMDCaption
 from optioner import Optioner
 from tvc_info import TVCCaption, TVCDescription
-from utils import export_json
+from utils import export_json, save_jsonl
 
 
-def load_cmd_caption(descriptions_path: Path, durations_path: Path):
+def load_cmd_caption(descriptions_path: Path, durations_path: Path) -> pd.DataFrame:
     description_df = pd.read_csv(descriptions_path)
     duration_df = pd.read_csv(durations_path)
     merge_df = pd.merge(description_df, duration_df, on="videoid")
@@ -43,12 +42,6 @@ def convert_caption(clip_id: int, cmd_row: pd.Series) -> TVCCaption:
     return tvc
 
 
-def save_tvc_caption_jsonl(tvc_dir: Path, json_string_list: List[str]):
-    with open(tvc_dir / "captions.jsonl", "w") as jsonl_file:
-        for json_string in json_string_list:
-            jsonl_file.write(json_string + "\n")
-
-
 def convert_captions(option: Optioner) -> None:
     cmd_df = load_cmd_caption(option.descriptions_path, option.durations_path)
 
@@ -59,5 +52,5 @@ def convert_captions(option: Optioner) -> None:
         tvc_json = export_json(tvc)
         tvc_json_list.append(tvc_json)
 
-    # Save TVC jsonl
-    save_tvc_caption_jsonl(option.tvc_dir, tvc_json_list)
+    # Save TVC captions jsonl
+    save_jsonl(option.tvc_dir, "captions", tvc_json_list)
