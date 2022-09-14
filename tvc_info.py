@@ -33,7 +33,7 @@ class TVCDescription:
         }
 
 
-class TVCInfo:
+class TVCCaption:
     def __init__(
         self,
         clip_id: int,
@@ -69,3 +69,44 @@ class TVCInfo:
     def __str__(self) -> str:
         tvc_dict = self.export_dictionary()
         return json.dumps(tvc_dict, indent=4, default=str)
+
+
+class TVCSubtitleLine:
+    def __init__(
+        self,
+        text: str,
+        start: float,
+        end: float,
+    ) -> None:
+        self.text = text
+        self.start = start
+        self.end = end
+
+    def export_dictionary(self):
+        return {
+            "text": self.text,
+            "start": self.start,
+            "end": self.end,
+        }
+
+    def is_valid(self):
+        if self.text == "":
+            return False
+        return True
+
+
+class TVCSubtitle:
+    def __init__(
+        self,
+        vid_name: str,
+        sub: List[TVCSubtitleLine],
+    ) -> None:
+        self.vid_name = vid_name
+        self.sub = sub
+
+    def export_dictionary(self):
+        sub_list = [sub.export_dictionary() for sub in self.sub]
+        return {
+            "vid_name": self.vid_name,
+            "sub": sub_list,
+        }
