@@ -5,9 +5,9 @@ from typing import List
 import pandas as pd
 from tqdm import tqdm
 
-from cmd_info import CMDInfo
+from cmd_info import CMDCaption
 from optioner import Optioner, get_args_parser
-from tvc_info import TVCDescription, TVCInfo
+from tvc_info import TVCDescription, TVCCaption
 
 
 def load_cmd(descriptions_path: Path, durations_path: Path):
@@ -17,9 +17,9 @@ def load_cmd(descriptions_path: Path, durations_path: Path):
     return merge_df
 
 
-def convert_cmd_to_tvc(clip_id: int, cmd_row: pd.Series) -> TVCInfo:
+def convert_caption(clip_id: int, cmd_row: pd.Series) -> TVCCaption:
     # Make CMD
-    cmd = CMDInfo(
+    cmd = CMDCaption(
         description=cmd_row.description,
         duration=cmd_row.duration,
         imdbid=cmd_row.imdbid,
@@ -33,7 +33,7 @@ def convert_cmd_to_tvc(clip_id: int, cmd_row: pd.Series) -> TVCInfo:
         from_retrieval=False,
         type="v",
     )
-    tvc = TVCInfo(
+    tvc = TVCCaption(
         clip_id=clip_id,
         descs=[description],
         duration=cmd.duration,
@@ -43,30 +43,34 @@ def convert_cmd_to_tvc(clip_id: int, cmd_row: pd.Series) -> TVCInfo:
     return tvc
 
 
-def export_json(tvc: TVCInfo) -> str:
+def export_json(tvc: TVCCaption) -> str:
     tvc_dict = tvc.export_dictionary()
     json_string = json.dumps(tvc_dict, default=str)
     return json_string
 
 
-def save_tvc_jsonl(tvc_dir: Path, json_string_list: List[str]):
+def save_tvc_caption_jsonl(tvc_dir: Path, json_string_list: List[str]):
     with open(tvc_dir / "cmd.jsonl", "w") as jsonl_file:
         for json_string in json_string_list:
             jsonl_file.write(json_string + "\n")
 
 
-def convert_caption(option: Optioner) -> None:
+def convert_captions(option: Optioner) -> None:
     cmd_df = load_cmd(option.descriptions_path, option.durations_path)
 
     # Convert CMD to TVC
     tvc_json_list = []
     for idx, row in tqdm(cmd_df.iterrows(), total=len(cmd_df)):
-        tvc = convert_cmd_to_tvc(idx, row)
+        tvc = convert_caption(idx, row)
         tvc_json = export_json(tvc)
         tvc_json_list.append(tvc_json)
 
     # Save TVC jsonl
-    save_tvc_jsonl(option.tvc_dir, tvc_json_list)
+    save_tvc_caption_jsonl(option.tvc_dir, tvc_json_list)
+
+
+def convert_subtitles(option: Optioner) -> None:
+    pass
 
 
 if __name__ == "__main__":
@@ -76,4 +80,6 @@ if __name__ == "__main__":
     option = Optioner(args)
 
     if option.is_caption:
-        convert_caption(option)
+        convert_captions(option)
+    if option.is_subtitle:
+        convert_subtitles(option)

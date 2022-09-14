@@ -1,4 +1,4 @@
-class CMDInfo:
+class CMDCaption:
     def __init__(
         self,
         description,

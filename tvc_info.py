@@ -33,7 +33,7 @@ class TVCDescription:
         }
 
 
-class TVCInfo:
+class TVCCaption:
     def __init__(
         self,
         clip_id: int,
