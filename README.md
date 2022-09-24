@@ -1,6 +1,8 @@
 # CMD to TVC
 Convert CMD(Condensed Movies Dataset) to TVC(TV show Caption) dataset
 
+Video Feature conversion is modified from opensource implementations made available by [HERO Video Feature Extractor](https://github.com/linjieli222/HERO_Video_Feature_Extractor).
+
 
 ## TODO
 - [x]  Video Features (v0.3.0)
@@ -10,6 +12,8 @@ Convert CMD(Condensed Movies Dataset) to TVC(TV show Caption) dataset
 # How to
 
 ## Install dependencies
+
+### Install python requirements with poetry
 
 ```bash
 $ poetry install
