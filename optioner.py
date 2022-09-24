@@ -59,6 +59,7 @@ class Optioner:
         self.descriptions_path: Path = self.metadata_dir / "descriptions.csv"
         self.durations_path: Path = self.metadata_dir / "durations.csv"
         self.videos_dir: Path = self.cmd_dir / "videos"
+        self.mp4_dir: Path = self.videos_dir / "mp4"
         self.tvc_dir: Path = self.project_dir / args.tvc_dir
         self.features_dir: Path = self.tvc_dir / "features"
         self.is_caption: bool = args.is_caption
@@ -84,3 +85,4 @@ class Optioner:
         self.tvc_dir.mkdir(parents=True, exist_ok=True)
         if self.is_feature:
             self.features_dir.mkdir(parents=True, exist_ok=True)
+            self.mp4_dir.mkdir(parents=True, exist_ok=True)
