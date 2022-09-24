@@ -1,6 +1,7 @@
 from captions import convert_captions
 from optioner import Optioner, get_args_parser
 from subtitles import convert_subtitles
+from features import convert_features
 
 
 if __name__ == "__main__":
@@ -13,3 +14,5 @@ if __name__ == "__main__":
         convert_captions(option)
     if option.is_subtitle:
         convert_subtitles(option)
+    if option.is_feature:
+        convert_features(option)

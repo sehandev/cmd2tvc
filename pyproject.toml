@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cmd2tvc"
-version = "0.1.0"
+version = "0.3.0"
 description = "Convert CMD(Condensed Movies Dataset) to TVC(TV show Caption) dataset"
 authors = ["sehandev <sehandev@gmail.com>"]
 license = "MIT"
@@ -11,6 +11,7 @@ python = "^3.8"
 pandas = "^1.4.4"
 tqdm = "^4.64.1"
 pysrt = "^1.1.2"
+ffmpeg-python = "^0.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
