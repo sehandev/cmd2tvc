@@ -15,6 +15,12 @@ Convert CMD(Condensed Movies Dataset) to TVC(TV show Caption) dataset
 $ poetry install
 ```
 
+### Install ffmpeg for feature conversion
+
+```bash
+$ sudo apt install ffmpeg
+```
+
 ## Caption & Subtitle & Feature conversion
 
 ```bash
