@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import List
 
-from tvc_info import TVCCaption
+from info.tvc_info import TVCCaption
 
 
 def export_json(tvc: TVCCaption) -> str:

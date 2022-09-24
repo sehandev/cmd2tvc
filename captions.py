@@ -3,9 +3,9 @@ from pathlib import Path
 import pandas as pd
 from tqdm import tqdm
 
-from cmd_info import CMDCaption
+from info.cmd_info import CMDCaption
 from optioner import Optioner
-from tvc_info import TVCCaption, TVCDescription
+from info.tvc_info import TVCCaption, TVCDescription
 from utils import export_json, save_jsonl
 
 

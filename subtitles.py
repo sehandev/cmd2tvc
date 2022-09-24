@@ -5,9 +5,9 @@ from typing import List
 import pysrt
 from tqdm import tqdm
 
-from cmd_info import CMDSubtitleLine
+from info.cmd_info import CMDSubtitleLine
 from optioner import Optioner
-from tvc_info import TVCSubtitle, TVCSubtitleLine
+from info.tvc_info import TVCSubtitle, TVCSubtitleLine
 from utils import export_json, save_jsonl
 
 PREPROCESS_FLAG = "preprocessed"

@@ -1,10 +1,13 @@
+from typing import Union
+
+
 class CMDCaption:
     def __init__(
         self,
-        description,
-        duration,
-        imdbid,
-        videoid,
+        description: str,
+        duration: str,
+        imdbid: str,
+        videoid: str,
         duration_type="int",
     ) -> None:
         self.description = description
@@ -13,7 +16,10 @@ class CMDCaption:
         self.videoid = videoid
 
     @staticmethod
-    def astype_duration(duration, type="int"):
+    def astype_duration(
+        duration: str,
+        type="int",
+    ) -> Union[str, int]:
         if type == "int":
             return int(duration)
 
